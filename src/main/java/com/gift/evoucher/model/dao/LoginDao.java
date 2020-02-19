@@ -1,4 +1,4 @@
-package com.gift.evoucher.model;
+package com.gift.evoucher.model.dao;
 
 import java.io.Serializable;
 

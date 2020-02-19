@@ -21,4 +21,9 @@ public class VoucherServiceImpl implements VoucherService {
     public void saveAll(List<Voucher> vouchers) {
         voucherRepository.saveAll(vouchers);
     }
+
+    @Override
+    public Voucher getVoucher(String voucherId) {
+        return voucherRepository.findById(voucherId).get();
+    }
 }
