@@ -18,7 +18,7 @@ public class Voucher {
     private Boolean isRedeemed;
 
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER,cascade= CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 
