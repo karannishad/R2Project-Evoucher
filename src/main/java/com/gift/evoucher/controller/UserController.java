@@ -1,12 +1,11 @@
 package com.gift.evoucher.controller;
 
-import com.gift.evoucher.model.Voucher;
-import com.gift.evoucher.model.dao.LoginDao;
 import com.gift.evoucher.model.User;
+import com.gift.evoucher.model.Voucher;
 import com.gift.evoucher.model.dao.AssignVoucher;
+import com.gift.evoucher.model.dao.LoginDao;
 import com.gift.evoucher.service.UserService;
 import com.gift.evoucher.service.VoucherService;
-import com.gift.evoucher.util.VoucherGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,37 +27,32 @@ public class UserController {
     VoucherService voucherService;
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginDao loginDao){
+    public ResponseEntity<String> login(@RequestBody LoginDao loginDao) {
         Optional<User> user = userService.findById(loginDao.getId());
 
-        if(user.isPresent())
-        {
+        if (user.isPresent()) {
             return new ResponseEntity<>(user.get().getRole(), HttpStatus.OK);
-        }
-        else{
-            User consumer =userService.saveUser(loginDao.getId());
-            return new ResponseEntity<>(consumer.getRole(),HttpStatus.OK);
+        } else {
+            User consumer = userService.saveUser(loginDao.getId());
+            return new ResponseEntity<>(consumer.getRole(), HttpStatus.OK);
         }
 
     }
 
     @PutMapping("/assignVoucher")
-    public ResponseEntity assignVoucher(@RequestBody AssignVoucher assignVoucher){
-        System.out.println(assignVoucher.getMobileNo());
-        System.out.println(assignVoucher.getVoucherId());
+    public ResponseEntity assignVoucher(@RequestBody AssignVoucher assignVoucher) {
         Optional<User> user = userService.findById(assignVoucher.getMobileNo());
-        if(user.isPresent())
-        {
+        if (user.isPresent()) {
             List<Voucher> vouchers = new ArrayList<>();
-            for(String voucherID:assignVoucher.getVoucherId()){
-            Voucher voucher = voucherService.getVoucher(voucherID);
-            voucher.setUser(user.get());
-            vouchers.add(voucher);
+            for (String voucherID : assignVoucher.getVoucherId()) {
+                Voucher voucher = voucherService.getVoucher(voucherID);
+                voucher.setUser(user.get());
+                vouchers.add(voucher);
             }
             voucherService.saveAll(vouchers);
-            return new ResponseEntity(vouchers,HttpStatus.OK);
+            return new ResponseEntity(vouchers, HttpStatus.OK);
         }
-        return new ResponseEntity("Exception Arised",HttpStatus.BAD_REQUEST);
+        return new ResponseEntity("User with mobile " +assignVoucher.getMobileNo() + "is not present" , HttpStatus.BAD_REQUEST);
     }
 
 }

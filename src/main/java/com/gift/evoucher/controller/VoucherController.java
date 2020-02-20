@@ -2,9 +2,7 @@ package com.gift.evoucher.controller;
 
 import com.gift.evoucher.model.User;
 import com.gift.evoucher.model.Voucher;
-import com.gift.evoucher.model.dao.LoginDao;
 import com.gift.evoucher.service.VoucherService;
-import com.gift.evoucher.util.VoucherGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,8 +28,7 @@ public class VoucherController {
 
     @PostMapping("/consumerVouchers")
     public ResponseEntity<?> getVoucherByConsumerId(@RequestBody User user){
-        List<String> vouchers = voucherService.getVouchersById(user);
-
+        List<Voucher> vouchers = voucherService.getVouchersById(user);
         return new ResponseEntity<>(vouchers, HttpStatus.OK);
     }
 }

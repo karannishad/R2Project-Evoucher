@@ -5,12 +5,12 @@ import java.util.ArrayList;
 
 public class AssignVoucher implements Serializable {
     private Long mobileNo;
-    private ArrayList<String> voucherId;
+    private String[] voucherId;
 
     public AssignVoucher() {
     }
 
-    public AssignVoucher(Long mobileNo, ArrayList<String> voucherId) {
+    public AssignVoucher(Long mobileNo, String[] voucherId) {
         this.mobileNo = mobileNo;
         this.voucherId = voucherId;
     }
@@ -23,11 +23,11 @@ public class AssignVoucher implements Serializable {
         this.mobileNo = mobileNo;
     }
 
-    public ArrayList<String> getVoucherId() {
+    public String[] getVoucherId() {
         return voucherId;
     }
 
-    public void setVoucherId(ArrayList<String> voucherId) {
+    public void setVoucherId(String[] voucherId) {
         this.voucherId = voucherId;
     }
 }

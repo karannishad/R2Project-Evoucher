@@ -14,5 +14,5 @@ public interface VoucherService {
     List<String> getAllVoucher();
 
 
-    List<String> getVouchersById(User user);
+    List<Voucher> getVouchersById(User user);
 }
